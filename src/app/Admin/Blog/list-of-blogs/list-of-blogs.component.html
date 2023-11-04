@@ -1,0 +1,137 @@
+<style>
+ 
+  select {
+     -webkit-appearance:none;
+     -moz-appearance:none;
+     -ms-appearance:none;
+     appearance:none;
+     outline:0;
+     box-shadow:none;
+     border:0!important;
+     background: #f4c5bf;
+     background-image: none;
+     flex: 1;
+     padding: 0 .5em;
+     color:#000000;
+     cursor:pointer;
+     font-size: 1em;
+     font-family: 'Open Sans', sans-serif;
+  }
+  select::-ms-expand {
+     display: none;
+  }
+  .select {
+     position: relative;
+     display: flex;
+     width: 20em;
+     height: 3em;
+     line-height: 3;
+     background: rgb(224, 88, 88);
+     overflow: hidden;
+     border-radius: .25em;
+  }
+  .select::after {
+     content: '\25BC';
+     position: absolute;
+     top: 0;
+     right: 0;
+     padding: 0 1em;
+     background: #e15f4b;
+     cursor:pointer;
+     pointer-events:none;
+     transition:.25s all ease;
+  }
+  .select:hover::after {
+     color: rgb(251, 247, 247);;
+  }
+ </style>
+
+
+<div class="main-content">
+  <div class="row">
+
+
+
+
+    <div class="col-md-4">
+      <div class="d-flex flex-column">
+        <label for="filter" style="color: black">Filter by: </label>
+        <div  class="select">
+          <select name="format" id="format"
+             [(ngModel)]="selectedFilter"
+             (ngModelChange)="filterBlogs()"
+          >
+          <option value="All">All</option>
+          <option value="How_to_Guides">How To Guides</option>
+          <option value="Trading_Tips_and_Tricks">Trading Tips and Tricks</option>
+          <option value="Legal_and_Safety">Legal and Safety</option>
+          <option value="Upcycling_and_DIY_Projects">Upcycling and DIY Projects</option>
+          </select>
+
+         
+         
+        </div>
+        <div class="form-group d-flex align-items-center">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="filterText"
+            (ngModelChange)="filterBlogs()"
+            placeholder="Filter by author"
+            style="color: black"
+          />
+        </div>
+      </div>
+      
+    </div>
+
+
+
+
+
+  
+
+      
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <p class="card-category">List of  Blogs </p>
+        </div>
+
+        <div class="card"></div>
+        <div class="card-body table-responsive">
+          <table class="table table-hover">
+            <thead class="text-dark">
+              <th>Id</th>
+              <th>Titre</th>
+              <th>Contenu</th>
+              <th>Likes</th>
+              <th>Views</th>
+              <th>Status</th>
+              <th>Tags</th>
+              <th>Publication Date</th>
+              <th>Author</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let c of blogs">
+                <td><b>#{{ c.id }}</b></td>
+                <td>{{ c.title }}</td>
+                <td>{{ c.content }}</td>
+                <td>{{ c.likes }}</td>
+                <td>{{ c.views }}</td>
+            
+                <span class="badge" style="font-size: 13px" [ngClass]="getStatusBadgeClass(c.status)" >{{ c.status }}</span>
+
+                <td>{{ c.tags }}</td>
+                <td>{{ c.publicationDate | date : "yyyy-MM-dd" }}</td>
+                <td>{{ c.username }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+        
+        </div>
+      </div>
+    </div>
+ 
+

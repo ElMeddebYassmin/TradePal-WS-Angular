@@ -1,0 +1,82 @@
+
+
+<div class="main-content">
+    <div class="row">
+
+
+
+
+        <div class="col-md-12">
+
+
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <div class="input-group">
+                                <input type="text" [(ngModel)]="searchValue" class="form-control" placeholder="Search...">
+                                <div class="input-group-append">
+                                    <button mat-raised-button (click)="listClaimsBySubject()" class="btn btn-white btn-round btn-just-icon">
+                                        <i class="material-icons">search</i>
+                                        <div class="ripple-container"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 mb-2">
+                            <select class="form-control" [(ngModel)]="selectedStatus" (change)="listClaimsByStatus()">
+                                <option value="PENDING">PENDING</option>
+                                <option value="INPROGRESS">IN PROGRESS</option>
+                                <option value="RESOLVED">RESOLVED</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <button mat-raised-button (click)="clearFilters()" class="btn btn-danger btn-round">
+                                Clear Filters
+                            </button>
+                        </div>
+                    </div>
+                    <p class="card-category">5 Réclamations per page, {{ cValue }}</p>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-hover">
+                        <thead class="text-dark">
+                        <th>Sujet</th>
+                        <th>Description</th>
+                        <th>Date Réclamation</th>
+                        <th>Statut</th>
+                        <th>Nom Du Demandeur </th>
+                        <th>Email Du Demandeur </th>
+                        <th>Réponses</th>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let c of claims ">
+                            <td>{{ c.subject }}</td>
+                            <td>{{ c.description }}</td>
+                            <td>{{c.claim_date}}</td>
+                            <td>
+                                <span class="badge" [ngClass]="getStatusBadgeClass(c.status)">{{ c.status }}</span>
+                            </td>
+                            <td>{{c.claimantName}}</td>
+                            <td>{{c.claimantEmail}}</td>
+                            <td>{{c.responseCount}}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <mat-paginator
+                            [length]="totalElements"
+                            [pageSize]="5"
+                            [pageSizeOptions]="[5, 10, 25, 100]"
+                            (page)="nextPage($event)"
+                            aria-label="Select page"
+                    >
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

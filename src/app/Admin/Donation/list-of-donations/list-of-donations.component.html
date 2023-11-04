@@ -1,0 +1,130 @@
+
+<style>
+ 
+  select {
+     -webkit-appearance:none;
+     -moz-appearance:none;
+     -ms-appearance:none;
+     appearance:none;
+     outline:0;
+     box-shadow:none;
+     border:0!important;
+     background: #f4c5bf;
+     background-image: none;
+     flex: 1;
+     padding: 0 .5em;
+     color:#000000;
+     cursor:pointer;
+     font-size: 1em;
+     font-family: 'Open Sans', sans-serif;
+  }
+  select::-ms-expand {
+     display: none;
+  }
+  .select {
+     position: relative;
+     display: flex;
+     width: 20em;
+     height: 3em;
+     line-height: 3;
+     background: rgb(224, 88, 88);
+     overflow: hidden;
+     border-radius: .25em;
+  }
+  .select::after {
+     content: '\25BC';
+     position: absolute;
+     top: 0;
+     right: 0;
+     padding: 0 1em;
+     background: #e15f4b;
+     cursor:pointer;
+     pointer-events:none;
+     transition:.25s all ease;
+  }
+  .select:hover::after {
+     color: rgb(251, 247, 247);;
+  }
+ </style>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-4 mb-4"> 
+      <div class="d-flex flex-column">
+        <label for="donationCategory" style="color: black"
+        >Filter by Donation Category:
+      </label>
+        <div class="select">
+         
+        
+            <select 
+            name="format" id="format"
+              [(ngModel)]="selectedDonationCategory"
+              (change)="filterDonations()"
+          
+             
+            >
+              <option value="none">Select</option>
+              <option value="hazelnuts_donation">Hazelnuts Donation</option>
+              <option value="object_donation">Object Donation</option>
+            </select>
+          </div>
+          <br>
+          <label for="orgCategory" style="color: black"
+          >Filter by Organization Category:
+        </label>
+          <div class="select">
+          
+            <select
+            name="format" id="format"
+            
+              [(ngModel)]="selectedOrgCategory"
+              #orgCategoryInput
+              (change)="filterDonations()"
+            >
+              <option value="none">Select</option>
+              <option value="Nonprofit_Organizations">
+                Nonprofit Organizations
+              </option>
+              <option value="Clubs_and_Associations">
+                Clubs and Associations
+              </option>
+              <option value="Community_Groups">Community Groups</option>
+              <option value="Educational_Institutions">
+                Educational Institutions
+              </option>
+            </select>
+       
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <p class="card-category">List Of Donations</p>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table table-hover">
+            <thead class="text-dark">
+              <th>Id</th>
+              <th>Amount</th>
+              <th>Object</th>
+              <th>Donor</th>
+            </thead>
+            <tbody>
+              <tr *ngFor="let donation of donations">
+                <td><b>#{{ donation.id }}</b></td>
+                <td>{{ donation.amount }}</td>
+                <td>
+                  {{
+                    donation.object === "null" ? "No Object" : donation.object
+                  }}
+                </td>
+                <td>{{ donation.donorName }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

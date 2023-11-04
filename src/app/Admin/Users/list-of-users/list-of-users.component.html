@@ -1,0 +1,45 @@
+<div class="main-content">
+  <div class="row">
+   
+   
+    
+
+    <div class="col-md-12">
+    
+
+      <div class="card">
+        <div class="card-header card-header-danger">
+        
+          <p class="card-category">List Of Users</p>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table table-hover">
+            <thead class="text-dark">
+              <th>Id</th>
+              <th>Email</th>
+              <th>Amount</th>
+              <th>Status</th>
+             
+              <th>Bio</th>
+           
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>#{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.amount }}</td>
+                <td>{{ user.account_status }}</td>
+               
+                <td>{{ user.bio }}</td>
+              
+              </tr>
+            </tbody>
+          </table>
+
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

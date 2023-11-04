@@ -1,0 +1,383 @@
+
+
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+  }
+
+  body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+  }
+
+  p {
+    width: 300px;
+    text-align: left;
+    margin-bottom: 30px;
+  }
+
+  .options {
+    cursor: pointer;
+    width: 300px;
+    min-height: 60px;
+    max-height: 300px;
+    border-radius: 15px;
+    background-color: rgb(250, 250, 250);
+    box-shadow: 2px 4px 8px #c5c5c5;
+    transition: all 300ms;
+  }
+
+  .options.opened {
+    overflow-y: scroll;
+  }
+
+  .option {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    transition: all 300ms;
+  }
+
+  .option:nth-child(1) {
+    border-radius: 15px;
+  }
+
+  .option:hover {
+    background-color: #f24237;
+    color: white;
+  }
+
+  .button {
+    cursor: pointer;
+    margin-top: 30px;
+    width: 300px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(184, 255, 112);
+    color: #212121;
+    font-weight: 600;
+    box-shadow: 2px 4px 8px rgba(45, 87, 5, 0.247);
+  }
+
+  .message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 255px;
+    height: 60px;
+    position: absolute;
+    right: -255px;
+    bottom: 5vh;
+    animation: showMessage ease-out 5s;
+  }
+
+  .message.success {
+    background-color: rgb(184, 255, 112);
+  }
+
+  .message.danger {
+    background-color: crimson;
+  }
+
+  @keyframes showMessage {
+    0%, 100% {right: -255px}
+    10% {right: 0}
+    90% {right: 0;}
+  }
+  label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  /* Style de la liste déroulante */
+  select {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+  }
+
+  /* Style des options de la liste déroulante */
+  select option {
+    background-color: #fff;
+    color: #333;
+    font-weight: normal;
+  }
+
+  /* Style de l'option par défaut */
+  select option[value=""] {
+    font-style: italic;
+    color: #999;
+  }
+
+  /* Style de l'option lorsqu'elle est survolée */
+  select option:hover {
+    background-color: #f0f0f0;
+  }
+
+  /* Style de l'option sélectionnée */
+  select option:checked {
+    background-color: #d4e3f9;
+    font-weight: bold;
+    color: #333;
+  }
+  .inline-block {
+    display: inline-block;
+    margin-right: 20px; /* Espacement entre les divs (ajustez selon vos besoins) */
+  }
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+
+<div class="main-content">
+  <div class="row">
+
+
+    
+
+    <div class="col-md-12">
+
+      <div class="flex-container">
+
+        <div class="row">
+
+        <div class="options inline-block" id="options">
+          <div class="hide-option option" id="hide-option">
+            <label for="locationFilter">Filtrer par emplacement :</label>
+            <select id="locationFilter" [(ngModel)]="locationFilter" (change)="applyFilter()">
+              <option value="">Tous les lieux</option>
+              <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+            </select>
+<!--            <i class="fa fa-search"></i>-->
+          </div>
+        </div>
+        <div class="options inline-block" id="options">
+          <div class="hide-option option" id="hide-option">
+            <label for="locationFilter">Filtrer par createur :</label>
+            <select id="userFilter" [(ngModel)]="userFilter" (change)="applyFilterUser()">
+              <option value="">Tous les createurs</option>
+              <option *ngFor="let add of adds" [value]="add">{{ add }}</option>
+            </select>
+
+
+
+
+
+          </div>
+        </div>
+
+
+
+        <div class="options inline-block" id="options">
+          <div class="hide-option option" id="hide-option">
+            <label for="locationFilter">Filtrer par date :</label>
+            <select id="locationFilter" [(ngModel)]="dateFilter" (change)="applyFilterDate()">
+              <option value="">Toutes les dates</option>
+              <option *ngFor="let date of eventDates" [value]="date">{{ date }}</option>            </select>
+
+
+
+
+
+          </div>
+        </div>
+
+        <br/>
+        <br/>
+          <br/>
+
+
+        <div class="options inline-block" id="options"  style="width: 500px;margin-top: 30px">
+          <div class="hide-option option" id="hide-option">
+            <label for="locationFilter">Filtrer par categorie et Lieu :</label>
+
+            <select id="catFilter" [(ngModel)]="selectedCategory" (change)="applyFilter2()">
+          <option value="">Tous les catégories</option>
+          <option *ngFor="let cat of cats" [value]="cat">{{ cat }}</option>
+        </select>
+
+        <select id="locationFilter" [(ngModel)]="selectedLocation" (change)="applyFilter2()">
+          <option value="">Tous les lieux</option>
+          <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+        </select>
+          </div>
+        </div>
+
+          <div class="options inline-block" id="options"  style="width: 400px;margin-top: 30px">
+            <div class="hide-option option" id="hide-option">
+              <label for="locationFilter">Filtrer par categorie :</label>
+              <select id="catFilter" [(ngModel)]="catFilter" (change)="applyFilterCat()">
+                <option value="">Tous les categories</option>
+                <option *ngFor="let cat of cats" [value]="cat">{{ cat }}</option>
+              </select>
+              <!--            <i class="fa fa-search"></i>-->
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header card-header-danger d-flex justify-content-between">
+            <p class="card-category">List Of Events
+  <br>
+              
+            </p>
+           
+          
+            <button class="btn btn-danger"  (click)="refreshPage()" style="border: none; background-color: transparent;">
+              <i class="fa fa-refresh" aria-hidden="true" style="font-size: 20px; color: white;"></i>
+            </button>
+         
+        </div>
+
+
+
+
+        <div class="card-body table-responsive">
+          <table class="table table-hover">
+            <thead class="text-dark">
+            <th>Id</th>
+            <th>Événement</th>
+            <th>Lieu</th>
+            <th>Description</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Ajouté par</th>
+            <th>Couleur</th>
+            <th>Chemin de l'image</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let e of equipes">
+              <td><b># {{ e.id }}</b></td>
+              <td>{{ e.eventName }}</td>
+              <td>{{ e.Lieu }}</td>
+              <td>{{ e.description }}</td>
+              <td>{{ e.start | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ e.end | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ e.addedByUsername }}</td>
+              <td>
+                <div [style.background-color]="e.color" style="width: 30px; height: 30px;"></div>
+              </td>
+              <td>{{ e.imagePath }}</td>
+            </tr>
+            </tbody>
+          </table>
+
+
+        
+        </div>
+      </div>
+    </div>
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+  </div></div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+
+
+
+
+
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+
+      <div class="card">
+        <div class="card-header card-header-danger"  >
+
+          <p class="card-category">List of Participations</p>
+        </div>
+        <!--        <input type="text" [(ngModel)]="locationFilter" placeholder="Filtrer par emplacement">-->
+        <!--        <button (click)="applyFilter()">Filtrer</button>-->
+
+        <!--        <input type="text" [(ngModel)]="dateFilter" placeholder="Filtrer par date et heure (jj-mm-aaaaThh:mm:ss)">-->
+        <!--        <button (click)="applyFilterDate()">Filtrer par date</button>-->
+
+
+
+
+
+        <div class="card-body table-responsive">
+
+          <div class="flex-container">
+
+            <div class="row">
+
+              <div class="options inline-block" id="options">
+                <div class="hide-option option" id="hide-option">
+                  <label for="locationFilter">Filtrer par nom Evenement :</label>
+                  <select id="nEFilter" [(ngModel)]="nEFilter" (change)="getParticipationsBYEventName()">
+                    <option value="">Tous les noms</option>
+                    <option *ngFor="let e of evtName" [value]="e">{{ e }}</option>
+                  </select>
+                  <!--            <i class="fa fa-search"></i>-->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <table class="table table-hover">
+            <thead class="text-dark">
+            <th>ID</th>
+            <th>Nom de l'utilisateur</th>
+            <th>Nom de l'événement</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let e of participations">
+              <td><b># {{ e.id }}</b></td>
+
+              <td>{{ e.nomUser  }}</td>
+              <td>{{ e.eventName   }}</td>
+
+
+
+
+            </tr>
+            </tbody>
+          </table>
+
+
+        
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+

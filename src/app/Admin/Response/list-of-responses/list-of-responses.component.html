@@ -1,0 +1,63 @@
+<div class="main-content">
+    <div class="row">
+
+
+
+
+        <div class="col-md-12">
+
+
+            <div class="card">
+                <div class="card-header card-header-danger">
+                    <div class="row justify-content-center">
+                        <div class="col-md-4 mb-2">
+                            <div class="input-group">
+                                <select class="form-control" [(ngModel)]="selectedType" (change)="ListOfResponsesByType()">
+                                    <option value="ResponseResolution">Response Resolution</option>
+                                    <option value="ResponseRejection">Response Rejection</option>
+                                    <option value="ResponseApology">Response Apology</option>
+                                    <option value="ResponseConfirmation">Response Confirmation</option>
+                                    <option value="ResponseInformation">Response Information</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 text-right">
+                            <button mat-raised-button (click)="clearFilters()" class="btn btn-danger btn-round">
+                                Clear Filters
+                            </button>
+                        </div>
+                    </div>
+                    <p class="card-category">5 Réclamations per page, {{ cValue }}</p>
+                </div>
+                <div class="card-body table-responsive">
+                    <table class="table table-hover">
+                        <thead class="text-dark">
+                        <th>Contenu</th>
+                        <th>Date Réponse</th>
+                        <th>Nom Demandeur</th>
+                        <th>Email Demandeur</th>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let c of responses ">
+                            <td>{{ c.content }}</td>
+                            <td>{{ c.response_date }}</td>
+                            <td>{{c.responderUsername}}</td>
+                            <td>{{c.responderEmail}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <mat-paginator
+                            [length]="totalElements"
+                            [pageSize]="5"
+                            [pageSizeOptions]="[5, 10, 25, 100]"
+                            (page)="nextPage($event)"
+                            aria-label="Select page"
+                    >
+                    </mat-paginator>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
